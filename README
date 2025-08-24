@@ -1,0 +1,41 @@
+# DEPI Project 1: Image Classification and Object Detection System
+
+## 📌 Project Overview
+This project is part of the **DEPI Program** and focuses on building a system for **Image Classification** and **Object Detection** using machine learning and deep learning techniques.  
+The goal is to automatically classify images into categories and detect objects within images with high accuracy.  
+Additionally, we are integrating **Text-to-Speech (TTS)** functionality to assist **visually impaired users** by reading out the detected objects and image classifications.
+
+---
+
+## 👥 Team Members
+- **Ahmed Mohamed Abdelkader Gabr** *(Team Leader)*  
+- Ayman Mahmoud Mohammed Mahmoud  
+- Habiba Ezat Abdeltwab  
+- Donia Mohamed Abo Elfotouh  
+- Rawan Gamal Abdullah Hassanien  
+- Khloud Ibrahim Mohamed
+
+---
+
+## 🛠️ Technologies & Tools (Planned)
+- Python
+- TensorFlow / PyTorch
+- OpenCV
+- gTTS / pyttsx3 *(for Text-to-Speech)*
+- NumPy & Pandas
+- Matplotlib & Seaborn
+- Jupyter Notebook
+- Git & GitHub
+
+---
+
+## 🎯 Project Objectives
+1. Build an image classification model to categorize images.
+2. Implement an object detection system to locate objects within images.
+3. Integrate **Text-to-Speech (TTS)** to enhance accessibility for visually impaired users.
+4. Evaluate the performance using standard metrics like accuracy, precision, and recall.
+5. Create a user-friendly interface for testing and visualizing results.
+
+---
+
+## 📂 Project Structure *(to be updated later)*
