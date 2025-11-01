@@ -1,0 +1,75 @@
+1. Project Planning
+This section defines our strategic approach to completing the project successfully and on time. Our planning is centered on an Agile-like methodology, breaking the entire project into five distinct, manageable milestones.
+Work Breakdown Structure (WBS): We have deconstructed the overall project goal into the 5-milestone plan. Each milestone is further broken down into specific tasks (as detailed in your full document) and assigned to team members based on their skills and development goals.
+Task Management & Timeline: We will use tools like GitHub Projects or Trello to track the status of each task (To-Do, In Progress, Done). This ensures transparency and helps the Team Leader (Ahmed Mohamed) monitor progress against our internal deadlines for each milestone.
+Resource Allocation: With a team of six, we will utilize parallel development. For example, during Milestone 2, some members can focus on the Image Classification model while others concurrently work on the Object Detection model.
+Key Milestones (Our Roadmap):
+Milestone 1: Data Collection, Preprocessing & Exploration: The foundation. We establish our datasets and understand their characteristics (EDA) to inform model choice.
+Milestone 2: Model Development & Optimization: The core technical build. We implement and train our baseline CNN and Object Detection models.
+Milestone 3: Advanced Techniques & Cloud Integration: We enhance our models using transfer learning and deploy them on Azure, building the API backend.
+Milestone 4: MLOps, Monitoring & Web Interface: We build the user-facing application, implement the crucial accessibility features (TTS), and establish a monitoring system.
+Milestone 5: Final Documentation & Presentation: We consolidate our work, report on our findings, and demonstrate the final, functional product.
+
+2. Stakeholder Analysis
+A formal analysis of our stakeholders is critical to ensure our project's objectives align with their needs and expectations.
+Primary Stakeholders:
+The DEPI Program: As the project sponsors, their main interest is our team's demonstration of technical proficiency, successful application of AI/Data Science principles, adherence to the milestone plan, and a polished final presentation.
+Project Team (6 Members): Our interests are to collaborate effectively, produce high-quality work, develop new skills (in Azure, MLOps, and advanced models), and achieve a successful project outcome for our portfolios and program requirements.
+End-Users: This group is split into two key personas:
+General Users: Require a fast, accurate, and intuitive web interface. They expect to upload an image and get a clear visual result (e.g., bounding boxes and classification labels) quickly.
+Visually Impaired Users (Key Focus Group): Their needs are the most complex and drive our most unique feature. They are the primary stakeholder for the TTS functionality. A simple visual UI is insufficient; they require an audio-first experience.
+Accessibility Requirements (from Key Stakeholders):
+The system must be fully navigable using only a keyboard.
+The interface must be compatible with screen readers (e.g., NVDA, JAWS), using proper ARIA labels and semantic HTML.
+The TTS audio output must be clear, descriptive, and easy to understand (e.g., "Image classification: a park. Found 3 objects: one person on a bench, one dog, and one bicycle.").
+Visual design must consider high-contrast options for users with low vision.
+
+3. UI/UX Design (User-Centric & Accessible-First)
+Our UI/UX design process is a core part of Milestone 4, and this live-feed model makes it a primary feature. Our guiding principle remains "Accessibility First," which now means providing clear, real-time audio feedback that corresponds to what the camera sees.
+Process:
+1. User Flow & Wireframing (The "Live Viewfinder")
+We will map out the new, real-time user journey:
+Visit Site: The user opens the web application.
+Grant Permission: The app immediately (or via a "Start" button) requests permission to use the device's camera.
+Start Viewfinder: The live camera feed (<video>) appears, filling the main part of the screen.
+Continuous Analysis: The system is now "live." It continuously grabs frames from the video stream and sends them to the backend API for detection and classification.
+Receive Real-Time Results: The system receives results (bounding boxes, classification labels) and simultaneously:
+Visually: Draws bounding boxes and labels over the live video feed (<canvas>).
+Audibly: Feeds the classifications ("Person," "Laptop," "Mug") to the Text-to-Speech (TTS) engine.
+Our wireframes will be minimal, focusing on an uncluttered "viewfinder" experience. The only UI elements on top of the video feed will be essential controls (like "Mute Audio" or "Switch Camera").
+
+2. Technical Prototype (The "Feasibility Spike")
+Unlike a static page, a Figma mockup is not enough. A core, early task for Milestone 4 will be to build a technical prototype to prove the core flow is viable. This prototype must achieve:
+Camera Access: Successfully use the navigator.mediaDevices.getUserMedia() browser API to get the live video feed.
+Frame Streaming: Develop a method (e.g., WebSockets or rapid fetch requests) to send video frames to our deployed Azure API.
+Result Overlay: Receive the JSON response (with coordinates) and use a <canvas> element to draw the bounding boxes over the live <video> element.
+This prototype validates our technical assumptions before we build the final, polished UI.
+
+3. Accessibility (A11y) Integration (The Real-Time Challenge)
+This is the most complex part of the design. We cannot just read everything the model detects, as it would create a constant, unusable stream of "noise" ("cup, cup, cup, cup, laptop, laptop...").
+Intelligent TTS Design: We must design an "audio logic" system.
+Debouncing/Throttling: The system should not repeat the same object unless the user's view changes significantly. We will announce new objects as they enter the frame (e.g., "New object: Mug") or provide a "summary" every few seconds (e.g., "I see: a laptop and a mug.").
+User Control: A large, easily discoverable (via keyboard or touch) "Mute/Unmute Audio" button is the most important UI control.
+Audio Feedback: The interface must provide audio cues for its state. For example:
+On load: "Camera starting. Ready to detect."
+On mute: "Audio muted."
+On error: "Connection lost. Unable to detect objects."
+Keyboard Navigation: Navigation must be simple. The Tab key should logically move between the only necessary controls:
+Mute/Unmute Audio button.
+Switch Camera button (if on a mobile device).
+(Maybe) a Pause/Resume Detection button. The video feed itself will be skipped.
+Semantic HTML & ARIA Live Regions:
+To provide real-time updates to all users (including those using their own screen readers, not just our TTS), we will use an aria-live region.
+We will have a hidden <div> with aria-live="polite" or aria-live="assertive".
+Our JavaScript will inject the detection results (e.g., "Found: Laptop") into this div, and the browser's accessibility API will automatically read it aloud. This ensures our TTS and native screen readers work in harmony.
+
+4. Usability Testing (Real-World Scenarios)
+Our testing plan will be entirely scenario-based. We will ask users (especially visually impaired testers) to complete real-world tasks:
+"Can you use this application to find your coffee mug on your desk?"
+"Can you point this at your computer and confirm what it is?"
+"Can you use this to identify the person walking into the room?"
+The feedback we will look for is:
+Is the audio feedback fast enough to be useful?
+Is the audio feedback too repetitive or annoying?
+Can you easily mute the audio when you don't need it?
+Does the audio give you enough information to understand your environment?
